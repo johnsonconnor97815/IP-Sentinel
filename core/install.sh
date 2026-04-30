@@ -20,7 +20,7 @@ SECURE_TMP=$(mktemp -d /tmp/ips_install.XXXXXX)
 trap 'rm -rf "$SECURE_TMP"' EXIT HUP INT QUIT TERM
 
 # 你的 GitHub 仓库 Raw 数据直链前缀
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/infraops-hawaii-honolulu"
 
 INSTALL_DIR="/opt/ip_sentinel"
 CONFIG_FILE="${INSTALL_DIR}/config.conf"

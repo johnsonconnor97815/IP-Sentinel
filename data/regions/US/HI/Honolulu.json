@@ -1,0 +1,31 @@
+{
+  "region_name": "United States - Honolulu",
+  "google_module": {
+    "base_lat": 21.3069,
+    "base_lon": -157.8583,
+    "lang_params": "hl=en&gl=US",
+    "valid_url_suffix": "com"
+  },
+  "trust_module": {
+    "white_urls": [
+      "https://portal.ehawaii.gov/",
+      "https://www.honolulu.gov/",
+      "https://www.hawaii.edu/",
+      "https://www.hawaiianairlines.com/",
+      "https://www.boh.com/",
+      "https://www.hawaiipacifichealth.org/",
+      "https://www.staradvertiser.com/",
+      "https://www.hawaiinewsnow.com/",
+      "https://www.foodland.com/",
+      "https://www.zippys.com/"
+    ],
+    "static_urls": [
+      "https://portal.ehawaii.gov/",
+      "https://www.honolulu.gov/",
+      "https://www.hawaii.edu/",
+      "https://www.hawaiianairlines.com/",
+      "https://www.boh.com/",
+      "https://www.foodland.com/"
+    ]
+  }
+}
