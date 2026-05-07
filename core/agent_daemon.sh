@@ -420,7 +420,7 @@ class AgentHandler(http.server.BaseHTTPRequestHandler):
                 import shutil
                 import base64
                 # 动态提取部署时的源地址，废除强制写死 main 分支，保障隔离测试环境
-                repo_url = "https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
+                repo_url = "https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
                 if os.path.exists('/opt/ip_sentinel/core/install.sh'):
                     with open('/opt/ip_sentinel/core/install.sh', 'r') as f:
                         for line in f:

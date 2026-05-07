@@ -8,10 +8,9 @@
 INSTALL_DIR="/opt/ip_sentinel"
 CONFIG_FILE="${INSTALL_DIR}/config.conf"
 UA_FILE="${INSTALL_DIR}/data/user_agents.txt"
-# 你的 GitHub 仓库 Raw 数据直链前缀
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
-# 临时改为私库地址用于测试
-# REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/v3.6.2-rc"
+# 自维护 fork 的 GitHub Raw 数据直链前缀
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
+# 如需测试其他分支，可临时覆盖 REPO_RAW_URL
 
 # 1. 基础环境校验
 [ ! -f "$CONFIG_FILE" ] && exit 1

@@ -117,7 +117,7 @@ LOG_CONTENT=$(tail -n 1000 "$LOG_FILE" 2>/dev/null)
 
 if [ -z "$LOG_CONTENT" ]; then
     read -r -d '' MSG <<EOT
-🛑 **[IP-Sentinel] 告警：节点异常**
+🛑 **[IP-Sentinel Honolulu Fork] 告警：节点异常**
 ----------------------------
 📍 **节点名称**: \`${NODE_ALIAS}\`
 ⚠️ **警告**: 过去 24 小时无运行日志！
@@ -135,7 +135,7 @@ else
     LAST_SCORE=$(echo "$LAST_LOG_LINE" | awk -F'自检结论: ' '{print $2}')
 
     # 开始组装战报头部
-    MSG="📊 **IP-Sentinel 每日简报 (${FLAG} ${REGION_NAME})**
+    MSG="📊 **IP-Sentinel Honolulu Fork 每日简报 (${FLAG} ${REGION_NAME})**
 ----------------------------
 📍 **节点名称**: \`${NODE_ALIAS}\`
 📡 **出口 IP**: \`${CURRENT_IP}\`
@@ -194,7 +194,7 @@ LOCAL_VER="${AGENT_VERSION:-未知}"
 REPORT_UTC_TIME=$(date -u "+%Y-%m-%d %H:%M:%S UTC")
 
 # 极轻量级探针: 抓取 GitHub 云端的 version.txt (超时 3 秒，KV解析法)
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
 REMOTE_VER=$(curl -s -m 3 "${REPO_RAW_URL}/version.txt" | grep "^AGENT_VERSION=" | cut -d'=' -f2 | tr -d '[:space:]')
 
 # 构建底部引擎状态块
@@ -207,17 +207,17 @@ MSG="$MSG
 # 比准逻辑：如果成功抓到了远端版本，且和本地不一样
 if [ -n "$REMOTE_VER" ] && [ "$REMOTE_VER" != "$LOCAL_VER" ]; then
     MSG="$MSG
-最新官方版本: \`v${REMOTE_VER}\` (✨有新版)
+最新维护版本: \`v${REMOTE_VER}\` (✨有新版)
 💡 *系统提示：检测到新版引擎，建议通过控制台执行 OTA 热更新！*"
 elif [ -n "$REMOTE_VER" ] && [ "$REMOTE_VER" == "$LOCAL_VER" ]; then
     MSG="$MSG
-最新官方版本: \`v${REMOTE_VER}\` (✅已是最新)
-💡 *IP-Sentinel 持续为您守护节点。*
+最新维护版本: \`v${REMOTE_VER}\` (✅已是最新)
+💡 *IP-Sentinel Honolulu Fork 持续为您守护节点。*
 *若本项目对您有帮助，欢迎前往 GitHub 赐予 🌟*"
 else
     # 抓取失败兜底
     MSG="$MSG
-💡 *IP-Sentinel 持续为您守护节点。*
+💡 *IP-Sentinel Honolulu Fork 持续为您守护节点。*
 *若本项目对您有帮助，欢迎前往 GitHub 赐予 🌟*"
 fi
 

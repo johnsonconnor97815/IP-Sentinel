@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================================
-# 脚本名称: updater.sh (IP-Sentinel 养料注入与分频调度中枢 - 动态锚点版)
+# 脚本名称: updater.sh (IP-Sentinel Honolulu Fork 养料注入与分频调度中枢 - 动态锚点版)
 # 核心功能: 静默更新热数据/LBS、指纹库错峰调度、强制出站死锁、版本无缝继承
 # ==========================================================
 
@@ -9,10 +9,9 @@ INSTALL_DIR="/opt/ip_sentinel"
 CONFIG_FILE="${INSTALL_DIR}/config.conf"
 UA_TIME_FILE="${INSTALL_DIR}/core/.ua_last_update"
 
-# GitHub 仓库 Raw 数据直链前缀
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
-# 临时改为开发地址用于测试
-# REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/v3.6.2-rc"
+# 自维护 fork 的 GitHub Raw 数据直链前缀
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
+# 如需测试其他分支，可临时覆盖 REPO_RAW_URL
 
 # 1. 加载本地冷数据配置
 if [ ! -f "$CONFIG_FILE" ]; then

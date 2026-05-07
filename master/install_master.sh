@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================================
-# 脚本名称: install_master.sh (IP-Sentinel 控制中枢部署脚本 - 动态锚点版)
+# 脚本名称: install_master.sh (IP-Sentinel Honolulu Fork 控制中枢部署脚本 - 动态锚点版)
 # 核心功能: 部署/卸载调度中枢、SQLite 资产管理、平滑热更新引擎
 # ==========================================================
 
@@ -9,7 +9,7 @@
 # 🛑 核心权限防线: 检查是否以 root 权限运行
 # ==========================================================
 if [ "$EUID" -ne 0 ]; then
-  echo -e "\033[31m❌ 权限被拒绝: 部署 IP-Sentinel 需要最高系统权限。\033[0m"
+  echo -e "\033[31m❌ 权限被拒绝: 部署 IP-Sentinel Honolulu Fork 需要最高系统权限。\033[0m"
   echo -e "💡 请切换到 root 用户 (执行 su root 或 sudo -i) 后重新运行指令。"
   exit 1
 fi
@@ -18,10 +18,9 @@ fi
 SECURE_TMP=$(mktemp -d /tmp/ips_master_install.XXXXXX)
 trap 'rm -rf "$SECURE_TMP"' EXIT HUP INT QUIT TERM
 
-# 你的 GitHub 仓库 Raw 数据直链前缀
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
-# 临时改为开发地址用于测试
-# REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/v3.6.2-rc"
+# 自维护 fork 的 GitHub Raw 数据直链前缀
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
+# 如需测试其他分支，可临时覆盖 REPO_RAW_URL
 
 # [核心: 动态提取 Master 专属版本锚点 (KV 解析法)]
 # 通过 grep 定位 MASTER_VERSION 行，再通过 cut 提取等号右侧的值
@@ -36,7 +35,7 @@ DB_FILE="${MASTER_DIR}/sentinel.db"
 
 echo "========================================================"
 # [修改] 将欢迎语改为更通用的文案，因为现在不仅能部署，还能卸载
-echo "      🧠 欢迎使用 IP-Sentinel Master (控制中枢) v${TARGET_VERSION}"
+echo "      🧠 欢迎使用 IP-Sentinel Honolulu Fork Master (控制中枢) v${TARGET_VERSION}"
 echo "========================================================"
 
 # ==========================================================
@@ -226,7 +225,7 @@ if [ "$UPGRADE_MODE" == "false" ]; then
     fi
 
     cat > "${MASTER_DIR}/master.conf" << EOF
-# IP-Sentinel Master 本地固化配置 (v${TARGET_VERSION})
+# IP-Sentinel Honolulu Fork Master 本地固化配置 (v${TARGET_VERSION})
 MASTER_VERSION="$TARGET_VERSION"
 TG_TOKEN="$TG_TOKEN"
 DB_FILE="$DB_FILE"
@@ -373,22 +372,14 @@ fi
 echo "========================================================"
 # =================================================================
 
-# ================== [v3.1.2 新增: 玻璃房透明装机统计] ==================
-# [修复] 仅在全新部署时触发统计，司令部热重载时绝对不触发
+# ================== [Fork] 自维护分支不再上报上游装机统计 ==================
 if [ "$UPGRADE_MODE" == "false" ]; then
-    echo -e "\n📡 正在向开源社区汇报装机量 (完全匿名，不收集IP)..."
-    MASTER_COUNT=$(curl -s -m 3 "https://ip-sentinel-count.samanthaestime296.workers.dev/ping/master" || echo "")
-
-    if [ -n "$MASTER_COUNT" ] && [[ "$MASTER_COUNT" =~ ^[0-9]+$ ]]; then
-        echo -e "\033[32m✅ 感谢您成为全球第 ${MASTER_COUNT} 名 IP-Sentinel 中枢管理者！\033[0m"
-    else
-        echo -e "\033[32m✅ 感谢您部署 IP-Sentinel 控制中枢！\033[0m"
-    fi
+    echo -e "\033[32m✅ 感谢您部署 IP-Sentinel Honolulu Fork 控制中枢！\033[0m"
 fi
 
 # ================== [新增: 安装成功高光时刻 Star 引导] ==================
 echo -e "\n========================================================"
-echo -e "⭐ \033[33m开源不易，如果 IP-Sentinel 极大简化了您的多节点管理，请赐予我们一枚星标！\033[0m"
+echo -e "⭐ \033[33m开源不易，如果 IP-Sentinel Honolulu Fork 极大简化了您的多节点管理，请赐予我们一枚星标！\033[0m"
 echo -e "💡 \033[32m您的每一颗 Star 都是我们持续迭代架构、开发 Web 视窗化控制台的动力源泉。\033[0m"
-echo -e "👉 \033[36m\033[4m\033]8;;https://github.com/hotyue/IP-Sentinel\033\\[点击此处直达 GitHub 仓库点亮 Star 🌟]\033]8;;\033\\\033[0m"
+echo -e "👉 \033[36m\033[4m\033]8;;https://github.com/johnsonconnor97815/IP-Sentinel\033\\[点击此处直达 GitHub 仓库点亮 Star 🌟]\033]8;;\033\\\033[0m"
 echo -e "========================================================\n"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 脚本名称: uninstall.sh (IP-Sentinel 一键卸载脚本 - 动态锚点版)
+# 脚本名称: uninstall.sh (IP-Sentinel Honolulu Fork 一键卸载脚本 - 动态锚点版)
 # 核心功能: 无痕清理守护进程、定时任务、运行目录及临时缓存
 # ==========================================================
 
@@ -8,7 +8,7 @@
 # 🛑 核心权限防线: 检查是否以 root 权限运行
 # ==========================================================
 if [ "$EUID" -ne 0 ]; then
-  echo -e "\033[31m❌ 权限被拒绝: 卸载 IP-Sentinel 需要最高系统权限。\033[0m"
+  echo -e "\033[31m❌ 权限被拒绝: 卸载 IP-Sentinel Honolulu Fork 需要最高系统权限。\033[0m"
   echo -e "💡 请切换到 root 用户 (执行 su root 或 sudo -i) 后重新运行指令。"
   exit 1
 fi
@@ -16,7 +16,7 @@ fi
 INSTALL_DIR="/opt/ip_sentinel"
 
 echo "========================================================"
-echo "      🗑️ 准备卸载 IP-Sentinel (边缘节点 Edge Agent)"
+echo "      🗑️ 准备卸载 IP-Sentinel Honolulu Fork (边缘节点 Edge Agent)"
 
 # [核心: 动态读取并播报即将销毁的本地版本号]
 CONFIG_FILE="${INSTALL_DIR}/config.conf"
@@ -93,7 +93,7 @@ if [ -d "$INSTALL_DIR" ]; then
 fi
 
 echo "========================================================"
-echo "✅ 卸载彻底完成！IP-Sentinel 已从您的系统中无痕移除。"
+echo "✅ 卸载彻底完成！IP-Sentinel Honolulu Fork 已从您的系统中无痕移除。"
 echo "💡 提示：如果安装时在防火墙放行了 Webhook 随机端口，请您按需手动关闭。"
 echo "👋 感谢您的使用，期待未来再次为您守护资产！"
 echo "========================================================"

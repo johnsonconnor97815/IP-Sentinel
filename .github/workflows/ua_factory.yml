@@ -24,10 +24,10 @@ jobs:
     - name: 🚀 Run UA Factory Generator
       run: python scripts/ua_generator.py
 
-    - name: 📤 Commit and Push to Main
+    - name: 📤 Commit and Push to honolulu-maintained
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add data/user_agents.txt
         # 只有在文件内容确实发生变化时才执行提交
-        git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): 🤖 自动机兵：刷新 4000 条绝对坐标指纹库" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): 🤖 自动机兵：刷新 4000 条绝对坐标指纹库" && git push origin HEAD:honolulu-maintained)

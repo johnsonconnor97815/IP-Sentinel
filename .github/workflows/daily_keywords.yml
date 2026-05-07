@@ -49,4 +49,4 @@ jobs:
           
           # 策略：将两路数据的更新合并为一个原子提交
           git commit -m "chore(data): 🤖 自动机兵：同步全战区热点词库与活体新闻流 [$(date +'%Y-%m-%d')]"
-          git push origin main
+          git push origin HEAD:honolulu-maintained

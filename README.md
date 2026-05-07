@@ -1,15 +1,23 @@
-# 🛡️ IP-Sentinel (分布式 IP 哨兵集群)
+# 🛡️ IP-Sentinel Honolulu Fork (自维护分支)
 
-![Agent Installs](https://img.shields.io/endpoint?url=https://ip-sentinel-count.samanthaestime296.workers.dev/stats/agent)
-![Master Commands](https://img.shields.io/endpoint?url=https://ip-sentinel-count.samanthaestime296.workers.dev/stats/master)
-![License](https://img.shields.io/github/license/hotyue/IP-Sentinel)
+![Fork Branch](https://img.shields.io/badge/branch-honolulu--maintained-blue)
+![Fork Reason](https://img.shields.io/badge/fork-Honolulu%20region-blue)
+![License](https://img.shields.io/github/license/johnsonconnor97815/IP-Sentinel)
+
+## Fork 声明
+
+本仓库是 `hotyue/IP-Sentinel` 的自维护 fork，维护分支为 `honolulu-maintained`。
+
+Fork 原因：上游未接受 Honolulu / Hawaii 区域数据 PR。为了继续保留 Honolulu LBS 锚点，并让依赖该区域的节点可以通过安装脚本和 OTA 热更新稳定拉取自维护数据，本分支改为独立维护。
+
+维护范围：优先保留上游主线能力，在兼容时同步上游更新；fork 专属安装、升级和数据热更新默认指向本仓库的 `honolulu-maintained` 分支。为兼容旧节点，内部安装目录和 systemd 服务名仍沿用 `ip_sentinel` / `ip-sentinel` 命名。原上游项目、公共机器人、Telegram 频道和历史贡献归属仍属于上游项目。
 
 > **一个极度轻量、零感知、支持中枢遥控的 VPS IP 自动化养护与区域纠偏引擎。**
 > **💡 提示：如果本项目提升了您的节点稳定性，请点击右上角点亮 🌟 Star！您的支持是我们持续研发和维护指纹库的核心动力。**
 
-📢 官方战术交流频道: 🛰️ [IP-Sentinel Matrix](https://t.me/IP_Sentinel_Matrix)
+📢 上游官方战术交流频道: 🛰️ [IP-Sentinel Matrix](https://t.me/IP_Sentinel_Matrix)
 
-专为解决 VPS IP 被 Google 等数据库错误定位到中国大陆/香港（俗称“送中”）等问题而生。IP-Sentinel 已从单机脚本全面跃升为 **Master-Agent 分布式架构**。它像影子一样潜伏在全球各地的服务器后台，通过高度拟真的真实用户行为为你默默积累 IP 权重，并允许你通过 Telegram 随时随地对整个舰队进行毫秒级“点名”与“遥控”。
+专为解决 VPS IP 被 Google 等数据库错误定位到中国大陆/香港（俗称“送中”）等问题而生。IP-Sentinel Honolulu Fork 基于上游 IP-Sentinel 的 **Master-Agent 分布式架构**，额外保留 Honolulu / Hawaii 区域锚点。它像影子一样潜伏在全球各地的服务器后台，通过高度拟真的真实用户行为为你默默积累 IP 权重，并允许你通过 Telegram 随时随地对整个舰队进行毫秒级“点名”与“遥控”。
 
 ## ✨ 核心极客特性 (Core Architecture)
 
@@ -34,7 +42,7 @@
 本项目采用企业级的“主从控制”与“冷热数据分离”双重架构：
 
 ```text
-📦 IP-Sentinel
+📦 IP-Sentinel Honolulu Fork
  ┣ 📂 .github/workflows/      # 🏭 自动化兵工厂：每月定时触发指纹生成的 CI/CD 流水线
  ┣ 📂 master/                 # 🧠 司令部：SQLite 存储 (含 ip_trend_log 趋势跟踪表)、TG 监听与 Webhook 调度
  ┣ 📂 core/                   # 🛡️ 边缘哨兵：Webhook 被动监听、哈希锚定执行引擎 (集成深海声呐探测模块)
@@ -60,12 +68,12 @@
 - **部署 Master (中枢大脑)**：找一台 VPS 作为司令部（仅需部署一台），执行：
 - [官方部署教程](https://blog.iot-architect.com/engineering-practice/ip-sentinel-master-deployment-guide/)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/hotyue/IP-Sentinel/main/master/install_master.sh -o /tmp/ins_master.sh && sudo bash /tmp/ins_master.sh
+curl -fsSL https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained/master/install_master.sh -o /tmp/ins_master.sh && sudo bash /tmp/ins_master.sh
 ```
 - 部署 Agent (边缘哨兵)：在需要养护的机器上执行 Agent 脚本，安装时选择私有独立中枢，并分别输入您自建机器人的 [Token](https://blog.iot-architect.com/engineering-practice/create-private-telegram-bot-via-botfather) 以及您的个人 [Chat ID](https://blog.iot-architect.com/engineering-practice/get-telegram-personal-id-via-userinfobot) ：
 - [官方部署教程](https://blog.iot-architect.com/engineering-practice/ip-sentinel-installation-and-upgrade-guide/)
 ```Bash
-curl -fsSL https://raw.githubusercontent.com/hotyue/IP-Sentinel/main/core/install.sh -o /tmp/ins_agent.sh && sudo bash /tmp/ins_agent.sh
+curl -fsSL https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained/core/install.sh -o /tmp/ins_agent.sh && sudo bash /tmp/ins_agent.sh
 ```
 - 激活节点：安装完成后，您的手机会收到一条 #REGISTER# 注册暗号，将其转发给您自己的机器人即可完成编队入库。
 
@@ -77,7 +85,7 @@ curl -fsSL https://raw.githubusercontent.com/hotyue/IP-Sentinel/main/core/instal
 - 部署 Agent：在目标 VPS 上执行以下指令，安装过程中选择官方公共网关，并输入您的 Chat ID：
 - [官方部署教程](https://blog.iot-architect.com/engineering-practice/ip-sentinel-installation-and-upgrade-guide/)
 ```Bash
-curl -fsSL https://raw.githubusercontent.com/hotyue/IP-Sentinel/main/core/install.sh -o /tmp/ins_agent.sh && sudo bash /tmp/ins_agent.sh
+curl -fsSL https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained/core/install.sh -o /tmp/ins_agent.sh && sudo bash /tmp/ins_agent.sh
 ```
 - 激活节点：同上，将收到的暗号转发给官方机器人即可。
 
@@ -94,7 +102,7 @@ curl -fsSL https://raw.githubusercontent.com/hotyue/IP-Sentinel/main/core/instal
 ### 💻 方式二：SSH 终端平滑直装 (适用于官方网关或老旧节点)
 如果您的节点不支持 OTA，或者您的节点版本过于陈旧 (如 v3.3.1)：
 
-- 登录该节点的 SSH 终端，再次运行上面的 core/install.sh 官方安装指令。
+- 登录该节点的 SSH 终端，再次运行上面的 core/install.sh fork 安装指令。
 
 - 安装引擎自带状态机嗅探逻辑，它会自动读取老旧数据，您只需一路回车，3 秒即可在本地完成配置继承、数据同步与新内核的无损覆盖热重载！
 
@@ -150,4 +158,4 @@ bash <(curl -sL https://raw.githubusercontent.com/hotyue/IP-Sentinel/legacy/core
 
 
 ## Stargazers over time
-[![Stargazers over time](https://starchart.cc/hotyue/IP-Sentinel.svg?variant=adaptive)](https://starchart.cc/hotyue/IP-Sentinel)
+[![Stargazers over time](https://starchart.cc/johnsonconnor97815/IP-Sentinel.svg?variant=adaptive)](https://starchart.cc/johnsonconnor97815/IP-Sentinel)

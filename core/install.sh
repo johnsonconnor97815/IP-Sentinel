@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================================
-# 脚本名称: install.sh (IP-Sentinel 分布式边缘节点部署脚本 - 动态锚点版)
+# 脚本名称: install.sh (IP-Sentinel Honolulu Fork 分布式边缘节点部署脚本 - 动态锚点版)
 # 核心功能: 战区分组菜单、模块按需开启、官方机器人一键配置、版本状态机路由
 # ==========================================================
 
@@ -9,7 +9,7 @@
 # 🛑 核心权限防线: 检查是否以 root 权限运行
 # ==========================================================
 if [ "$EUID" -ne 0 ]; then
-  echo -e "\033[31m❌ 权限被拒绝: 部署 IP-Sentinel 需要最高系统权限。\033[0m"
+  echo -e "\033[31m❌ 权限被拒绝: 部署 IP-Sentinel Honolulu Fork 需要最高系统权限。\033[0m"
   echo -e "💡 请切换到 root 用户 (执行 su root 或 sudo -i) 后重新运行指令。"
   exit 1
 fi
@@ -19,8 +19,8 @@ SECURE_TMP=$(mktemp -d /tmp/ips_install.XXXXXX)
 # 确保脚本退出、异常中断或被强杀时，自动销毁沙盒，不留痕迹
 trap 'rm -rf "$SECURE_TMP"' EXIT HUP INT QUIT TERM
 
-# 你的 GitHub 仓库 Raw 数据直链前缀
-REPO_RAW_URL="https://raw.githubusercontent.com/hotyue/IP-Sentinel/main"
+# 自维护 fork 的 GitHub Raw 数据直链前缀
+REPO_RAW_URL="https://raw.githubusercontent.com/johnsonconnor97815/IP-Sentinel/honolulu-maintained"
 
 INSTALL_DIR="/opt/ip_sentinel"
 CONFIG_FILE="${INSTALL_DIR}/config.conf"
@@ -133,7 +133,7 @@ if [ "$SILENT_OTA" == "true" ]; then
 else
     echo -e "\n请选择操作:"
     echo "  1) 🚀 部署边缘节点 (进入全球节点配置)"
-    echo "  2) 🗑️ 一键卸载 IP-Sentinel"
+    echo "  2) 🗑️ 一键卸载 IP-Sentinel Honolulu Fork"
     read -p "请输入选择 [1-2] (默认1): " ACTION_CHOICE
 
     # [v3.5.2 修复] 防止用户直接回车导致变量为空，从而漏过下方的平滑升级判定
@@ -153,7 +153,7 @@ else
     KEEP_LOGS="true"
 
     if [ "$ACTION_CHOICE" == "1" ] && [ -f "$CONFIG_FILE" ]; then
-        echo -e "\n\033[33m💡 哨兵雷达提示：检测到本机已部署过 IP-Sentinel。\033[0m"
+        echo -e "\n\033[33m💡 哨兵雷达提示：检测到本机已部署过 IP-Sentinel Honolulu Fork。\033[0m"
         read -p "👉 是否按原配置直接进行平滑升级？(y/n, 默认y): " UPGRADE_CHOICE
         if [[ -z "$UPGRADE_CHOICE" || "$UPGRADE_CHOICE" =~ ^[Yy]$ ]]; then
             UPGRADE_MODE="true"
@@ -520,7 +520,7 @@ if [ "$UPGRADE_MODE" == "false" ]; then
 
     # 写入本地静态配置文件 (v3.4.0 引入版本锚点)
     cat > "$CONFIG_FILE" << EOF
-# IP-Sentinel 本地固化配置 (生成时间: $(date '+%Y-%m-%d %H:%M:%S'))
+# IP-Sentinel Honolulu Fork 本地固化配置 (生成时间: $(date '+%Y-%m-%d %H:%M:%S'))
 AGENT_VERSION="$TARGET_VERSION"
 REGION_CODE="$REGION_CODE"
 REGION_NAME="$REGION_NAME"
@@ -936,7 +936,7 @@ if [[ -n "$TG_TOKEN" ]] && [[ -n "$CHAT_ID" ]]; then
         # [路由表 1]: 跨代兼容 (老版本 < v3.3.2)
         if version_lt "$OLD_VERSION" "3.3.2"; then
             echo -e "\n📡 [路由枢纽] 正在执行跨代架构重组 (v${OLD_VERSION} -> v${TARGET_VERSION})..."
-            TEXT_MSG="✨ *IP-Sentinel 引擎热更新完成！*
+            TEXT_MSG="✨ *IP-Sentinel Honolulu Fork 引擎热更新完成！*
 📍 节点：\`${NODE_ALIAS}\`
 🌐 IP：\`${SAFE_PUBLIC_IP}\`
 🚀 状态：v${TARGET_VERSION} OTA 动态活体引擎已部署
@@ -953,7 +953,7 @@ if [[ -n "$TG_TOKEN" ]] && [[ -n "$CHAT_ID" ]]; then
         # [路由表 2]: 现代静默升级 (老版本 >= v3.3.2)
         else
             echo -e "\n📡 [路由枢纽] 正在执行静默平滑升级 (v${OLD_VERSION} -> v${TARGET_VERSION})..."
-            TEXT_MSG="✨ *IP-Sentinel 引擎热更新完成！*
+            TEXT_MSG="✨ *IP-Sentinel Honolulu Fork 引擎热更新完成！*
 📍 节点：\`${NODE_ALIAS}\`
 🌐 IP：\`${SAFE_PUBLIC_IP}\`
 🚀 状态：v${TARGET_VERSION} OTA 动态活体引擎已部署"
@@ -976,7 +976,7 @@ if [[ -n "$TG_TOKEN" ]] && [[ -n "$CHAT_ID" ]]; then
     else
         # [全新安装路由]
         echo -e "\n📡 正在向指挥部发送注册暗号..."
-        TEXT_MSG="✨ *IP-Sentinel 部署成功！*
+        TEXT_MSG="✨ *IP-Sentinel Honolulu Fork 部署成功！*
 📍 区域：${REGION_NAME}
 🌐 IP：${SAFE_PUBLIC_IP}
 🔌 端口：${AGENT_PORT}
@@ -1033,22 +1033,14 @@ fi
 echo "🗑️ 若未来需卸载，可重新运行本脚本选择[2]或执行: bash ${INSTALL_DIR}/core/uninstall.sh"
 echo "========================================================"
 
-# ================== [v3.1.2 新增: 玻璃房透明装机统计] ==================
-# [修复] 仅在全新部署时触发统计，平滑升级/OTA 时绝对不触发，防止配额耗尽与数据注水
+# ================== [Fork] 自维护分支不再上报上游装机统计 ==================
 if [ "$UPGRADE_MODE" == "false" ]; then
-    echo -e "\n📡 正在向开源社区汇报装机量 (完全匿名，不收集IP)..."
-    AGENT_COUNT=$(curl -s -m 3 "https://ip-sentinel-count.samanthaestime296.workers.dev/ping/agent" || echo "")
-
-    if [ -n "$AGENT_COUNT" ] && [[ "$AGENT_COUNT" =~ ^[0-9]+$ ]]; then
-        echo -e "\033[32m✅ 感谢您成为全球第 ${AGENT_COUNT} 名 IP-Sentinel 节点维护者！\033[0m"
-    else
-        echo -e "\033[32m✅ 感谢您部署 IP-Sentinel！\033[0m"
-    fi
+    echo -e "\033[32m✅ 感谢您部署 IP-Sentinel Honolulu Fork！\033[0m"
 fi
 
 # ================== [新增: 安装成功高光时刻 Star 引导] ==================
 echo -e "\n========================================================"
-echo -e "⭐ \033[33m开源不易，如果 IP-Sentinel 提升了您的节点稳定性，请赐予我们一枚星标！\033[0m"
+echo -e "⭐ \033[33m开源不易，如果 IP-Sentinel Honolulu Fork 提升了您的节点稳定性，请赐予我们一枚星标！\033[0m"
 echo -e "💡 \033[32m您的每一颗 Star 都是我们持续对抗风控、维护更新指纹库的核心动力。\033[0m"
-echo -e "👉 \033[36m\033[4m\033]8;;https://github.com/hotyue/IP-Sentinel\033\\[点击此处直达 GitHub 仓库点亮 Star 🌟]\033]8;;\033\\\033[0m"
+echo -e "👉 \033[36m\033[4m\033]8;;https://github.com/johnsonconnor97815/IP-Sentinel\033\\[点击此处直达 GitHub 仓库点亮 Star 🌟]\033]8;;\033\\\033[0m"
 echo -e "========================================================\n"
